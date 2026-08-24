@@ -3,13 +3,13 @@ public class Main {
     public static void main(String[] args) {
 
         PedidoComida pedidoComida =
-                new PedidoComida("001", "Av. Italia 456", 4);
+                new PedidoComida("101", "Av. Macul 2450", 6);
 
         PedidoEncomienda pedidoEncomienda =
-                new PedidoEncomienda("002", "Av. Independencia 123", 6);
+                new PedidoEncomienda("102", "Av. Grecia 1780", 10);
 
         PedidoExpress pedidoExpress =
-                new PedidoExpress("003", "Av. Apoquindo 1500", 7);
+                new PedidoExpress("103", "Av. Tobalaba 3200", 8);
 
         pedidoComida.mostrarResumen();
         System.out.println("Tiempo estimado de entrega: "
@@ -24,6 +24,10 @@ public class Main {
         System.out.println();
 
         pedidoExpress.mostrarResumen();
+        System.out.println("Tiempo estimado de entrega: "
+                + pedidoExpress.calcularTiempoEntrega() + " minutos");
+    }
+}
         System.out.println("Tiempo estimado de entrega: "
                 + pedidoExpress.calcularTiempoEntrega() + " minutos");
     }
