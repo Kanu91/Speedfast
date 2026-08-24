@@ -1,74 +1,88 @@
-SpeedFast - Desarrollo Orientado a Objetos II
+# SpeedFast - Desarrollo Orientado a Objetos II
 
-Proyecto desarrollado en Java para la empresa ficticia SpeedFast.
+Proyecto desarrollado en Java para las actividades de las semanas 1 y 2 de Desarrollo Orientado a Objetos II.
 
-El repositorio contiene el desarrollo progresivo de las actividades correspondientes a las semanas 1 y 2.
+## Semana 1
 
-Semana 1 - Polimorfismo, sobrecarga y sobreescritura
+En la primera semana se trabajó con una clase base `Pedido` y tres tipos de pedidos:
 
-Durante la Semana 1 se desarrolló una jerarquía de clases para representar distintos tipos de pedidos.
+* `PedidoComida`
+* `PedidoEncomienda`
+* `PedidoExpress`
 
-Se implementaron:
+Se utilizaron los métodos `asignarRepartidor()` y `asignarRepartidor(String nombreRepartidor)` para trabajar con sobreescritura y sobrecarga.
 
-- Clase base Pedido.
-- PedidoComida.
-- PedidoEncomienda.
-- PedidoExpress.
-- Sobreescritura del método asignarRepartidor().
-- Sobrecarga del método asignarRepartidor(String nombreRepartidor).
-- Clase Main para demostrar el funcionamiento del sistema.
+Cada pedido tiene una forma distinta de asignar al repartidor:
 
-Semana 2 - Clase abstracta y jerarquía
+* Comida: requiere mochila térmica.
+* Encomienda: considera peso y embalaje.
+* Express: considera al repartidor más cercano disponible.
 
-Durante la Semana 2 se modificó la estructura del proyecto utilizando una clase abstracta Pedido.
+## Semana 2
 
-La clase Pedido contiene los atributos comunes:
+En la segunda semana se modificó la clase `Pedido` y se definió como abstracta.
 
-- idPedido.
-- direccionEntrega.
-- distanciaKm.
+Contiene los atributos:
 
-Además, implementa el método mostrarResumen() y declara el método abstracto calcularTiempoEntrega().
+* `idPedido`
+* `direccionEntrega`
+* `distanciaKm`
 
-Cada subclase implementa su propio cálculo de tiempo de entrega:
+También contiene los métodos:
 
-PedidoComida
+* `mostrarResumen()`
+* `calcularTiempoEntrega()`
 
-Tiempo de entrega:
+El método `calcularTiempoEntrega()` se implementa de manera distinta en cada tipo de pedido.
 
-15 minutos base + 2 minutos por kilómetro.
+### PedidoComida
 
-PedidoEncomienda
+El tiempo de entrega corresponde a 15 minutos más 2 minutos por cada kilómetro.
 
-Tiempo de entrega:
+### PedidoEncomienda
 
-20 minutos base + 1.5 minutos por kilómetro.
+El tiempo de entrega corresponde a 20 minutos más 1.5 minutos por cada kilómetro.
 
-PedidoExpress
+### PedidoExpress
 
-Tiempo de entrega:
+El tiempo base es de 10 minutos. Si la distancia supera los 5 kilómetros se agregan 5 minutos.
 
-10 minutos base.
+## Casos utilizados
 
-Si la distancia es mayor a 5 kilómetros, se agregan 5 minutos adicionales.
+### PedidoComida
 
- Estructura del proyecto
+* ID: 101
+* Dirección: Av. Macul 2450
+* Distancia: 6 km
+* Tiempo estimado: 27 minutos
 
+### PedidoEncomienda
+
+* ID: 102
+* Dirección: Av. Grecia 1780
+* Distancia: 10 km
+* Tiempo estimado: 35 minutos
+
+### PedidoExpress
+
+* ID: 103
+* Dirección: Av. Tobalaba 3200
+* Distancia: 8 km
+* Tiempo estimado: 15 minutos
+
+## Estructura
+
+```text
 src/
+├── Main.java
+├── Pedido.java
+├── PedidoComida.java
+├── PedidoEncomienda.java
+└── PedidoExpress.java
+```
 
-- Pedido.java
-- PedidoComida.java
-- PedidoEncomienda.java
-- PedidoExpress.java
-- Main.java
-Ejemplo de resultados
+## Ejecución
 
-PedidoComida: 4 km - 23 minutos.
+La clase `Main` crea un pedido de cada tipo y muestra su información junto con el tiempo estimado de entrega.
 
-PedidoEncomienda: 6 km - 29 minutos.
-
-PedidoExpress: 7 km - 15 minutos.
-
-## Entorno de desarrollo
-
-Proyecto desarrollado en Java para su ejecución en IntelliJ IDEA.
+El proyecto fue desarrollado en Java utilizando IntelliJ IDEA.
