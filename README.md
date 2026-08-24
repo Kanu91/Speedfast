@@ -1,42 +1,74 @@
- SpeedFast
+SpeedFast - Desarrollo Orientado a Objetos II
 
- Desarrollo Orientado a Objetos II
+Proyecto desarrollado en Java para la empresa ficticia SpeedFast.
 
-Actividad correspondiente a la Semana 1, enfocada en la aplicación de polimorfismo mediante sobreescritura y sobrecarga de métodos en Java.
+El repositorio contiene el desarrollo progresivo de las actividades correspondientes a las semanas 1 y 2.
 
- Descripción
+Semana 1 - Polimorfismo, sobrecarga y sobreescritura
 
-El proyecto representa un sistema de asignación de repartidores para la empresa SpeedFast, considerando tres tipos de pedidos:
+Durante la Semana 1 se desarrolló una jerarquía de clases para representar distintos tipos de pedidos.
 
-* Pedido de comida.
-* Pedido de encomienda.
-* Pedido express.
+Se implementaron:
 
-Cada tipo de pedido implementa un comportamiento diferente para la asignación del repartidor.
+- Clase base Pedido.
+- PedidoComida.
+- PedidoEncomienda.
+- PedidoExpress.
+- Sobreescritura del método asignarRepartidor().
+- Sobrecarga del método asignarRepartidor(String nombreRepartidor).
+- Clase Main para demostrar el funcionamiento del sistema.
+
+Semana 2 - Clase abstracta y jerarquía
+
+Durante la Semana 2 se modificó la estructura del proyecto utilizando una clase abstracta Pedido.
+
+La clase Pedido contiene los atributos comunes:
+
+- idPedido.
+- direccionEntrega.
+- distanciaKm.
+
+Además, implementa el método mostrarResumen() y declara el método abstracto calcularTiempoEntrega().
+
+Cada subclase implementa su propio cálculo de tiempo de entrega:
+
+PedidoComida
+
+Tiempo de entrega:
+
+15 minutos base + 2 minutos por kilómetro.
+
+PedidoEncomienda
+
+Tiempo de entrega:
+
+20 minutos base + 1.5 minutos por kilómetro.
+
+PedidoExpress
+
+Tiempo de entrega:
+
+10 minutos base.
+
+Si la distancia es mayor a 5 kilómetros, se agregan 5 minutos adicionales.
 
  Estructura del proyecto
 
-
 src/
-├── Pedido.java
-├── PedidoComida.java
-├── PedidoEncomienda.java
-├── PedidoExpress.java
-└── Main.java
 
+- Pedido.java
+- PedidoComida.java
+- PedidoEncomienda.java
+- PedidoExpress.java
+- Main.java
+Ejemplo de resultados
 
- Conceptos aplicados
+PedidoComida: 4 km - 23 minutos.
 
-* Herencia.
-* Encapsulamiento.
-* Polimorfismo.
-* Sobreescritura de métodos.
-* Sobrecarga de métodos.
-* Constructores.
-* Clases derivadas.
+PedidoEncomienda: 6 km - 29 minutos.
 
-## Ejecución
+PedidoExpress: 7 km - 15 minutos.
 
-La clase `Main` crea un objeto de cada tipo de pedido y ejecuta las versiones sobrescritas y sobrecargadas del método `asignarRepartidor()`.
+## Entorno de desarrollo
 
-El proyecto fue desarrollado en Java para su ejecución en IntelliJ IDEA.
+Proyecto desarrollado en Java para su ejecución en IntelliJ IDEA.
