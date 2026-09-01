@@ -1,12 +1,17 @@
 package cl.duoc.speedfast.app;
 
+import cl.duoc.speedfast.modelo.Pedido;
 import cl.duoc.speedfast.modelo.PedidoComida;
 import cl.duoc.speedfast.modelo.PedidoEncomienda;
 import cl.duoc.speedfast.modelo.PedidoExpress;
 
+import java.util.ArrayList;
+
 public class Main {
 
     public static void main(String[] args) {
+
+        ArrayList<Pedido> historialEntregas = new ArrayList<>();
 
         PedidoComida comida =
                 new PedidoComida("301", "Av. Vicuña Mackenna 2450", 5);
@@ -24,7 +29,7 @@ public class Main {
         System.out.println("Tiempo estimado: "
                 + comida.calcularTiempoEntrega() + " minutos");
         comida.despachar();
-        comida.verHistorial();
+        historialEntregas.add(comida);
 
         System.out.println();
 
@@ -35,7 +40,7 @@ public class Main {
         System.out.println("Tiempo estimado: "
                 + encomienda.calcularTiempoEntrega() + " minutos");
         encomienda.despachar();
-        encomienda.verHistorial();
+        historialEntregas.add(encomienda);
 
         System.out.println();
 
@@ -46,6 +51,17 @@ public class Main {
         System.out.println("Tiempo estimado: "
                 + express.calcularTiempoEntrega() + " minutos");
         express.cancelar();
-        express.verHistorial();
+
+        System.out.println();
+        System.out.println("=== HISTORIAL DE ENTREGAS ===");
+
+        for (Pedido pedido : historialEntregas) {
+            System.out.println(
+                    pedido.getClass().getSimpleName()
+                            + " #" + pedido.getIdPedido()
+                            + " - entregado por "
+                            + pedido.getRepartidorAsignado()
+            );
+        }
     }
 }
