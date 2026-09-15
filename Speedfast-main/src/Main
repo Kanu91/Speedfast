@@ -1,0 +1,34 @@
+public class Main {
+
+    public static void main(String[] args) {
+
+        PedidoComida pedidoComida =
+                new PedidoComida("101", "Av. Macul 2450", 6);
+
+        PedidoEncomienda pedidoEncomienda =
+                new PedidoEncomienda("102", "Av. Grecia 1780", 10);
+
+        PedidoExpress pedidoExpress =
+                new PedidoExpress("103", "Av. Tobalaba 3200", 8);
+
+        pedidoComida.mostrarResumen();
+        System.out.println("Tiempo estimado de entrega: "
+                + pedidoComida.calcularTiempoEntrega() + " minutos");
+
+        System.out.println();
+
+        pedidoEncomienda.mostrarResumen();
+        System.out.println("Tiempo estimado de entrega: "
+                + pedidoEncomienda.calcularTiempoEntrega() + " minutos");
+
+        System.out.println();
+
+        pedidoExpress.mostrarResumen();
+        System.out.println("Tiempo estimado de entrega: "
+                + pedidoExpress.calcularTiempoEntrega() + " minutos");
+    }
+}
+        System.out.println("Tiempo estimado de entrega: "
+                + pedidoExpress.calcularTiempoEntrega() + " minutos");
+    }
+}
