@@ -1,67 +1,66 @@
 package cl.duoc.speedfast.app;
 
+import cl.duoc.speedfast.concurrencia.Repartidor;
 import cl.duoc.speedfast.modelo.Pedido;
 import cl.duoc.speedfast.modelo.PedidoComida;
 import cl.duoc.speedfast.modelo.PedidoEncomienda;
 import cl.duoc.speedfast.modelo.PedidoExpress;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        ArrayList<Pedido> historialEntregas = new ArrayList<>();
+        List<Pedido> pedidosSofia = Arrays.asList(
+                new PedidoComida("401", "Av. Escuela Agrícola 1234", 4),
+                new PedidoExpress("402", "Av. Matta 890", 6)
+        );
 
-        PedidoComida comida =
-                new PedidoComida("301", "Av. Vicuña Mackenna 2450", 5);
+        List<Pedido> pedidosDiego = Arrays.asList(
+                new PedidoEncomienda("403", "Camino Melipilla 5200", 9),
+                new PedidoComida("404", "Av. La Florida 7640", 3)
+        );
 
-        PedidoEncomienda encomienda =
-                new PedidoEncomienda("302", "Av. Pajaritos 1800", 8);
+        List<Pedido> pedidosFernanda = Arrays.asList(
+                new PedidoExpress("405", "Gran Avenida 4500", 7),
+                new PedidoEncomienda("406", "Av. Recoleta 3150", 5)
+        );
 
-        PedidoExpress express =
-                new PedidoExpress("303", "Av. Los Leones 920", 4);
+        Repartidor repartidor1 =
+                new Repartidor("Sofía Morales", pedidosSofia);
 
-        System.out.println("=== PEDIDO COMIDA ===");
-        comida.mostrarResumen();
-        comida.asignarRepartidor();
-        comida.reservar();
-        System.out.println("Tiempo estimado: "
-                + comida.calcularTiempoEntrega() + " minutos");
-        comida.despachar();
-        historialEntregas.add(comida);
+        Repartidor repartidor2 =
+                new Repartidor("Diego Fuentes", pedidosDiego);
 
-        System.out.println();
+        Repartidor repartidor3 =
+                new Repartidor("Fernanda Ríos", pedidosFernanda);
 
-        System.out.println("=== PEDIDO ENCOMIENDA ===");
-        encomienda.mostrarResumen();
-        encomienda.asignarRepartidor("Felipe Muñoz");
-        encomienda.reservar();
-        System.out.println("Tiempo estimado: "
-                + encomienda.calcularTiempoEntrega() + " minutos");
-        encomienda.despachar();
-        historialEntregas.add(encomienda);
+        ExecutorService executor = Executors.newFixedThreadPool(3);
 
-        System.out.println();
+        executor.submit(repartidor1);
+        executor.submit(repartidor2);
+        executor.submit(repartidor3);
 
-        System.out.println("=== PEDIDO EXPRESS ===");
-        express.mostrarResumen();
-        express.asignarRepartidor("Andrea Silva");
-        express.reservar();
-        System.out.println("Tiempo estimado: "
-                + express.calcularTiempoEntrega() + " minutos");
-        express.cancelar();
+        executor.shutdown();
 
-        System.out.println();
-        System.out.println("=== HISTORIAL DE ENTREGAS ===");
+        try {
+            if (executor.awaitTermination(1, TimeUnit.MINUTES)) {
+                System.out.println();
+                System.out.println("Todos los repartidores finalizaron sus entregas.");
+            } else {
+                System.out.println("La simulación superó el tiempo de espera.");
+                executor.shutdownNow();
+            }
 
-        for (Pedido pedido : historialEntregas) {
-            System.out.println(
-                    pedido.getClass().getSimpleName()
-                            + " #" + pedido.getIdPedido()
-                            + " - entregado por "
-                            + pedido.getRepartidorAsignado()
-            );
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
+            Thread.currentThread().interrupt();
+            System.out.println("La ejecución fue interrumpida.");
         }
     }
 }
