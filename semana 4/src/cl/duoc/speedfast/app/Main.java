@@ -1,13 +1,9 @@
 package cl.duoc.speedfast.app;
 
 import cl.duoc.speedfast.concurrencia.Repartidor;
+import cl.duoc.speedfast.concurrencia.ZonaDeCarga;
 import cl.duoc.speedfast.modelo.Pedido;
-import cl.duoc.speedfast.modelo.PedidoComida;
-import cl.duoc.speedfast.modelo.PedidoEncomienda;
-import cl.duoc.speedfast.modelo.PedidoExpress;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -16,29 +12,40 @@ public class Main {
 
     public static void main(String[] args) {
 
-        List<Pedido> pedidosSofia = Arrays.asList(
-                new PedidoComida("401", "Av. Escuela Agrícola 1234", 4),
-                new PedidoExpress("402", "Av. Matta 890", 6)
+        ZonaDeCarga zonaDeCarga = new ZonaDeCarga();
+
+        zonaDeCarga.agregarPedido(
+                new Pedido(501, "Av. Departamental 1850")
         );
 
-        List<Pedido> pedidosDiego = Arrays.asList(
-                new PedidoEncomienda("403", "Camino Melipilla 5200", 9),
-                new PedidoComida("404", "Av. La Florida 7640", 3)
+        zonaDeCarga.agregarPedido(
+                new Pedido(502, "Av. Pedro de Valdivia 2210")
         );
 
-        List<Pedido> pedidosFernanda = Arrays.asList(
-                new PedidoExpress("405", "Gran Avenida 4500", 7),
-                new PedidoEncomienda("406", "Av. Recoleta 3150", 5)
+        zonaDeCarga.agregarPedido(
+                new Pedido(503, "Av. Ecuador 4620")
+        );
+
+        zonaDeCarga.agregarPedido(
+                new Pedido(504, "Av. Vitacura 4100")
+        );
+
+        zonaDeCarga.agregarPedido(
+                new Pedido(505, "Av. Américo Vespucio 1380")
+        );
+
+        zonaDeCarga.agregarPedido(
+                new Pedido(506, "Av. San Pablo 3250")
         );
 
         Repartidor repartidor1 =
-                new Repartidor("Sofía Morales", pedidosSofia);
+                new Repartidor("Tomás Vega", zonaDeCarga);
 
         Repartidor repartidor2 =
-                new Repartidor("Diego Fuentes", pedidosDiego);
+                new Repartidor("Paula Contreras", zonaDeCarga);
 
         Repartidor repartidor3 =
-                new Repartidor("Fernanda Ríos", pedidosFernanda);
+                new Repartidor("Matías Soto", zonaDeCarga);
 
         ExecutorService executor = Executors.newFixedThreadPool(3);
 
@@ -49,18 +56,31 @@ public class Main {
         executor.shutdown();
 
         try {
+
             if (executor.awaitTermination(1, TimeUnit.MINUTES)) {
+
                 System.out.println();
-                System.out.println("Todos los repartidores finalizaron sus entregas.");
+                System.out.println(
+                        "Todos los pedidos han sido entregados correctamente"
+                );
+
             } else {
-                System.out.println("La simulación superó el tiempo de espera.");
+
+                System.out.println(
+                        "La ejecución superó el tiempo máximo de espera."
+                );
+
                 executor.shutdownNow();
             }
 
         } catch (InterruptedException e) {
+
             executor.shutdownNow();
             Thread.currentThread().interrupt();
-            System.out.println("La ejecución fue interrumpida.");
+
+            System.out.println(
+                    "La ejecución fue interrumpida."
+            );
         }
     }
 }
