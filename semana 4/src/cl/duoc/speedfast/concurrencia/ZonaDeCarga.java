@@ -16,6 +16,7 @@ public class ZonaDeCarga {
     }
 
     public synchronized void agregarPedido(Pedido pedido) {
+
         pedidos.add(pedido);
 
         System.out.println(
@@ -27,11 +28,12 @@ public class ZonaDeCarga {
 
     public synchronized Pedido retirarPedido() {
 
-        for (Pedido pedido : pedidos) {
+        for (int i = 0; i < pedidos.size(); i++) {
+
+            Pedido pedido = pedidos.get(i);
 
             if (pedido.getEstado() == EstadoPedido.PENDIENTE) {
-                pedido.setEstado(EstadoPedido.EN_REPARTO);
-                pedidos.remove(pedido);
+                pedidos.remove(i);
                 return pedido;
             }
         }
